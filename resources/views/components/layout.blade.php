@@ -7,7 +7,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         @vite("resources/css/app.css")
 
-    <body class="bg-slate-200 text-slate-700 mx-auto mt-10 max-w-2xl">
+    <body class="bg-linear-to-r/hsl from-indigo-200 to-teal-200 text-slate-700 mx-auto mt-10 max-w-2xl">
         {{$slot}}
 
     </body>

@@ -8,7 +8,7 @@
     @foreach ($options as $option)
     <label>
         <input type="radio" name="{{$name}}" value="{{$option}}" @checked(request($name) === $option) />
-        {{$option}}
+        {{Str::ucfirst($option)}}
     </label>
         
     @endforeach
