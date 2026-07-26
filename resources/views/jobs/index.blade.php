@@ -1,20 +1,20 @@
 <x-layout>
     <x-breadcrumbs :links="['Jobs' => route('jobs.index')]" class="mb-4"></x-breadcrumbs>
-    <x-card class="mb-4">
-        <form id="filtering-form" action="{{ route('jobs.index') }}" method="GET">
+    <x-card class="mb-4" x-data>
+        <form x-ref="filters" action="{{ route('jobs.index') }}" method="GET">
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <h4 class="mb-1">Search</h4>
                     <x-text-input name="search" value="{{ request('search') }}"
-                        placeholder="Search for any text of your interest" formId="filtering-form"/>
+                        placeholder="Search for any text of your interest" formRef="filters" />
                 </div>
                 <div>
                     <h4 class="mb-1">Salary</h4>
                     <div class="flex gap-4 items-center">
-                        <x-text-input name="min_salary" value="{{ request('min_salary') }}"
-                            placeholder="From" formId="filtering-form"/>
-                        <x-text-input name="max_salary" value="{{ request('max_salary') }}"
-                            placeholder="To" formId="filtering-form"/>
+                        <x-text-input name="min_salary" value="{{ request('min_salary') }}" placeholder="From"
+                            formRef="filters" />
+                        <x-text-input name="max_salary" value="{{ request('max_salary') }}" placeholder="To"
+                            formRef="filters" />
                     </div>
                 </div>
                 <div class="mb-4">
@@ -28,8 +28,9 @@
             </div>
             <div>
                 <x-button type="submit" class="w-full mb-2">Filter</x-button>
-                
-                <a href="{{ route('jobs.index') }}" class="block w-full text-center hover:bg-slate-500 hover:text-white rounded-md border py-1 px-1.5 border-slate-300">Reset</a>
+
+                <a href="{{ route('jobs.index') }}"
+                    class="block w-full text-center hover:bg-slate-500 hover:text-white rounded-md border py-1 px-1.5 border-slate-300">Reset</a>
 
 
             </div>

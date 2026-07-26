@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-        @vite("resources/css/app.css")
+        @vite(["resources/css/app.css",'resources/js/app.js'])
 
     <body class="bg-linear-to-r/hsl from-indigo-200 to-teal-200 text-slate-700 mx-auto mt-10 max-w-2xl">
         {{$slot}}
