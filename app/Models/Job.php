@@ -13,6 +13,10 @@ class Job extends Model
     use HasFactory;
     public static array $experience = ["entry","intermediate","senior"];
     public static array $category = ["IT","Sales","Finances","Marketing"];
+
+    public function employer(){
+        return $this->belongsTo(Employer::class);
+    }
    
     public function scopeFilter( Builder | EloquentBuilder $query, array $filters){
         return $query->when($filters['search'] ?? null,function ($query,$search) {
