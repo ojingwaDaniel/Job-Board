@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->string("company_name");
             $table->timestamps();
         });
         Schema::table("jobs",function(Blueprint $table){

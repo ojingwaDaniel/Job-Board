@@ -19,10 +19,10 @@ class JobController extends Controller
             "min_salary",
             "max_salary"
         );
-        $jobs = Job::filter($filters)->get();
+        $jobs = Job::with('employer')->filter($filters)->get();
         
     
-        return view("jobs.index",["jobs" => $jobs]);
+        return view('jobs.index',['jobs'=> $jobs]);
     }
 
     /**
