@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="mt-4 flex justify-end">
+    <div class="mt-4">
         {{ $slot }}
     </div>
 </x-card>

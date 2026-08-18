@@ -3,14 +3,14 @@
     <x-card class="mb-6" x-data>
         <form x-ref="filters" action="{{ route('jobs.index') }}" method="GET" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Search -->
+             
                 <div>
                     <label class="block text-sm font-medium text-slate-600 mb-1">Search</label>
                     <x-text-input name="search" value="{{ request('search') }}" placeholder="Job title, keywords…"
                         formRef="filters"
                         class="w-full rounded-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500" />
                 </div>
-                <!-- Salary Range -->
+           
                 <div>
                     <label class="block text-sm font-medium text-slate-600 mb-1">Salary</label>
                     <div class="flex gap-3">
@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <!-- Experience & Category (side by side on larger screens) -->
+          
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <h4 class="text-sm font-medium text-slate-600 mb-2">Experience</h4>
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <!-- Buttons -->
+      
             <div class="flex flex-col sm:flex-row gap-3 pt-2">
                 <x-button type="submit"
                     class="flex-1 justify-center bg-gradient-to-r from-indigo-600 to-teal-500 hover:from-indigo-700 hover:to-teal-600 text-white shadow-md hover:shadow-lg transition-all duration-200">

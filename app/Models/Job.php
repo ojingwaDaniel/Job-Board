@@ -17,6 +17,9 @@ class Job extends Model
     public function employer(){
         return $this->belongsTo(Employer::class);
     }
+    public function jobApplications(){
+        return $this->hasMany(JobApplication::class);
+    }
    
     public function scopeFilter( Builder | EloquentBuilder $query, array $filters){
         return $query->when($filters['search'] ?? null,function ($query,$search) {

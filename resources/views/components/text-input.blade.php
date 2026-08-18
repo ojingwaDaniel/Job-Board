@@ -1,7 +1,8 @@
 <!-- An unexamined life is not worth living. - Socrates -->
 @props([
     'formRef' => null,
-    "type" => "text"
+    "type" => "text",
+    
 ])
 <div class="relative">
     @if ($formRef)
@@ -15,7 +16,8 @@
         </button>
     @endif
 
-    <input type="{{$type}}" x-ref="input-{{ $name }}"
+    <input
+     type="{{$type}}" x-ref="input-{{ $name }}"
         class="mb-4 w-full ring-1 ring-slate-300 px-2.5 py-1.5 rounded-md text-sm placeholder:text-slate-300 focus:ring-2"
         placeholder="{{ $placeholder }}" name="{{ $name }}" value="{{ $value }}"
         id="{{ $name }}">

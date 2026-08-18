@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -29,6 +30,18 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            "email" => "required|email",
+            "password" => "required"
+        ]);
+        $remember = $request->filled("remember");
+        $credentials = $request->only("email","password");
+        if (Auth::attempt($credentials,$remember)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }else{
+            return redirect()->back()->with("error", "Invalid credentails");
+        }
     }
 
     /**
@@ -58,8 +71,11 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route("login");
     }
 }
