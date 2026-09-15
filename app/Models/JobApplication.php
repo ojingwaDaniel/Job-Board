@@ -11,10 +11,10 @@ class JobApplication extends Model
     use HasFactory;
     protected $fillable = ['expected_salary','user_id'];
     public function user(){
-        $this->belongsTo(User::class);
+         return $this->belongsTo(User::class);
     }
 
      public function job(){
-        $this->belongsTo(Job::class);
+       return  $this->belongsTo(Job::class);
     }
 }
