@@ -12,7 +12,7 @@ class JobApplicationController extends Controller
     public function create(Job $job)
     {
         // $this->authorize('apply',$job);
-        Gate::authorize('apply',$job);
+        Gate::authorize('apply', $job);
         return view("jobApplications.create", compact("job"));
     }
 
@@ -21,11 +21,17 @@ class JobApplicationController extends Controller
      */
     public function store(Job $job, Request $request)
     {
+        $validatedData = $request->validate([
+            'expected_salary' => "required|integer|min:1|max:1000000",
+            "cv" => "required|file|mimes:docx,pdf|max:2048"
+        ]);
+        $file = $request->file("cv");
+        $cvPath = $file->store("cvs", "private");
         $job->jobApplications()->create([
             'user_id' => $request->user()->id,
-            ...$request->validate([
-                'expected_salary' => "required|integer|min:1|max:1000000"
-            ])
+            'expected_salary' => $validatedData['expected_salary'],
+            "cv_path" => $cvPath
+
         ]);
         return redirect()->route("jobs.show", $job)->with("success", "Job Application submitted sucessfully");
     }
