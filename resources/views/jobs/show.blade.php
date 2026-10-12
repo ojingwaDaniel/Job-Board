@@ -14,28 +14,31 @@
         </div>
 
         {{-- ── Apply / Already applied ───────────────────────────────── --}}
-        <div class="mt-6 border-t border-slate-100 pt-5">
 
+
+        {{-- Apply / Already applied --}}
+        <div class="mt-6 border-t border-slate-100 pt-5">
             @guest
+                {{-- Guest: Sign in to apply --}}
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-start gap-3">
                         <span
-                            class="grid h-9 w-9 shrink-0 place-items-center rounded-lg
+                            class="grid h-10 w-10 shrink-0 place-items-center rounded-xl
                              bg-slate-100 text-slate-600">
-                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M12 20h9" />
-                                <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                                <path d="M12 15v2" />
+                                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                                <rect x="5" y="10" width="14" height="11" rx="2" />
                             </svg>
                         </span>
 
-                        <div class="min-w-0">
+                        <div>
                             <p class="text-sm font-semibold text-slate-900">
-                                Ready to apply?
+                                Ready for your next opportunity?
                             </p>
-
-                            <p class="mt-0.5 text-xs text-slate-500">
-                                Sign in to apply for this job.
+                            <p class="mt-1 text-sm text-slate-500">
+                                Sign in to submit your application.
                             </p>
                         </div>
                     </div>
@@ -45,66 +48,107 @@
                     </x-link-button>
                 </div>
             @else
-                @can('apply', $job)
-                    <div class="flex flex-wrap items-center justify-between gap-4">
-                        <div class="flex items-start gap-3">
-                            <span
-                                class="grid h-9 w-9 shrink-0 place-items-center rounded-lg
-                                 bg-slate-100 text-slate-600">
-                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M12 20h9" />
-                                    <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
-                                </svg>
-                            </span>
-
-                            <div class="min-w-0">
-                                <p class="text-sm font-semibold text-slate-900">
-                                    Ready to apply?
-                                </p>
-
-                                <p class="mt-0.5 text-xs text-slate-500">
-                                    Takes a minute. You can always edit your application later.
-                                </p>
-                            </div>
-                        </div>
-
-                        <x-link-button :href="route('jobs.application.create', $job)" variant="solid" size="lg" class="shrink-0">
-                            Apply now
-                        </x-link-button>
-                    </div>
-                @else
+                @can('posted', $job)
+                    {{-- Employer who posted this job --}}
                     <div
-                        class="flex items-center gap-3 rounded-lg
-                        border border-slate-200 bg-slate-50 px-4 py-3">
-
+                        class="flex items-start gap-3 rounded-xl border border-amber-200
+                        bg-amber-50 p-4 sm:p-5">
                         <span
-                            class="grid h-8 w-8 shrink-0 place-items-center rounded-full
-                             bg-slate-900 text-white">
-                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            class="grid h-10 w-10 shrink-0 place-items-center
+                             rounded-full bg-amber-100 text-amber-700">
+                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M20 6 9 17l-5-5" />
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M12 8v4" />
+                                <path d="M12 16h.01" />
                             </svg>
                         </span>
 
-                        <div class="min-w-0">
-                            <p class="text-sm font-semibold text-slate-900">
-                                Application submitted
+                        <div>
+                            <p class="text-sm font-semibold text-amber-900">
+                                You're the job poster
                             </p>
-
-                            <p class="mt-0.5 text-xs text-slate-500">
-                                You've already applied for this job. We'll be in touch.
+                            <p class="mt-1 text-sm leading-5 text-amber-800">
+                                You can't apply for a job posted by your own company.
+                                Manage your listing from your employer dashboard instead.
                             </p>
+                            <a href="{{ route('my-jobs.index') }}"
+                                class="mt-3 inline-flex items-center gap-2 text-sm
+                              font-semibold text-amber-900 underline
+                              decoration-amber-400 underline-offset-4
+                              transition hover:text-amber-700">
+                                Go to My Jobs
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M5 12h14" />
+                                    <path d="m12 5 7 7-7 7" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
+                @else
+                    @can('apply', $job)
+                        {{-- Eligible applicant --}}
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-start gap-3">
+                                <span
+                                    class="grid h-10 w-10 shrink-0 place-items-center
+                                     rounded-xl bg-slate-100 text-slate-600">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M12 20h9" />
+                                        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-900">
+                                        Interested in this role?
+                                    </p>
+                                    <p class="mt-1 text-sm text-slate-500">
+                                        Submit your application and take the next step.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <x-link-button :href="route('jobs.application.create', $job)" variant="solid" size="lg" class="shrink-0">
+                                Apply now
+                                
+                            </x-link-button>
+                        </div>
+                    @else
+                        {{-- Already applied --}}
+                        <div
+                            class="flex items-start gap-3 rounded-xl border
+                            border-emerald-200 bg-emerald-50 p-4 sm:p-5">
+                            <span
+                                class="grid h-10 w-10 shrink-0 place-items-center
+                                 rounded-full bg-emerald-100 text-emerald-700">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="m5 12 4 4L19 6" />
+                                </svg>
+                            </span>
+
+                            <div>
+                                <p class="text-sm font-semibold text-emerald-900">
+                                    Application submitted
+                                </p>
+                                <p class="mt-1 text-sm leading-5 text-emerald-800">
+                                    You've already applied for this position.
+                                    Keep an eye on your applications for updates.
+                                </p>
+                            </div>
+                        </div>
+                    @endcan
                 @endcan
-
             @endguest
-
         </div>
+
+
     </x-job-card>
 
-    {{-- ── More from employer ────────────────────────────────────────── --}}
+
     <x-card padding="p-0">
         {{-- Section header --}}
         <div class="flex items-center justify-between gap-4 border-b border-slate-100 px-6 py-4">

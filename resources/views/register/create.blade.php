@@ -14,63 +14,82 @@
             </div>
 
             <h1 class="t">
-                Welcome back
+                Welcome to SureGo Job Board
             </h1>
             <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                Sign in to continue to your account
+                Register your account
             </p>
         </div>
 
         {{-- ── Card ───────────────────────────────────────────────────── --}}
         <x-card>
-            <form action="{{ route('auth.store') }}" method="POST" class="space-y-5">
+            <form action="{{ route('register.store') }}" method="POST" class="space-y-5">
                 @csrf
-
+                <div>
+                    <x-label for="name"
+                        class="mb-1.5 block text-xs font-semibold uppercase tracking-wide
+                                  text-slate-500 dark:text-slate-400"
+                        required="true">
+                        FullName
+                    </x-label>
+                    <x-text-input id="name" name="name" type="text" placeholder="John Doe"
+                        autocomplete="name" autofocus />
+                </div>
                 {{-- Email --}}
                 <div>
                     <x-label for="email"
                         class="mb-1.5 block text-xs font-semibold uppercase tracking-wide
-                                  text-slate-500 dark:text-slate-400" required="true">
+                                  text-slate-500 dark:text-slate-400"
+                        required="true">
                         Email
                     </x-label>
-                    <x-text-input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email"
-                        autofocus />
+                    <x-text-input id="email" name="email" type="email" placeholder="you@example.com"
+                        autocomplete="email" autofocus />
                 </div>
 
                 {{-- Password --}}
                 <div>
-                    <div class="mt-5 flex items-center justify-between">
+                    <div class="mt-5 ">
                         <x-label for="password" required="true">
                             Password
                         </x-label>
+                        <x-text-input id="password" name="password" type="password" placeholder="••••••••"
+                            autocomplete="current-password" />
 
                     </div>
-                    <x-text-input id="password" name="password" type="password" placeholder="••••••••"
-                        autocomplete="current-password" />
+                    <div class="mt-5">
+                        <x-label for="password" required="true">
+                            Confrim Password
+                        </x-label>
+                        <x-text-input id="password" name="password_confirmation" type="password"
+                            placeholder="••••••••" />
+
+                    </div>
+
                 </div>
                 <div class="flex justify-between mt-3">
                     <label class="group flex cursor-pointer select-none items-center gap-2.5 w-fit">
                         <input type="checkbox" name="remember" id="remember" />
-                       
+
                         <span
                             class="text-sm text-slate-900 group-hover:text-slate-900 transition-colors
                                  dark:text-slate-900">
                             Remember me for 30 days
                         </span>
                     </label>
-                    <a href="#"
+                    <a href="{{route("login")}}"
                         class="text-xs font-medium text-indigo-600 transition-colors
                                   hover:text-indigo-800 hover:underline
                                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40
                                   focus-visible:ring-offset-1 rounded
                                   dark:text-indigo-400 dark:hover:text-indigo-300">
-                        Forgot password?
+                        Have an Account? Sign in
                     </a>
 
                 </div>
 
 
-           
+
 
                 {{-- Submit --}}
                 <x-button type="submit"
@@ -81,7 +100,7 @@
                            hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/35
                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40
                            focus-visible:ring-offset-2">
-                    Sign in
+                    Sign up
                     <svg class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

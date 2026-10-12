@@ -18,10 +18,10 @@ class AuthController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function login()
     {
         //
-        return view("auth.create");
+        return view("auth.login");
     }
 
     /**

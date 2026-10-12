@@ -14,6 +14,7 @@ class Job extends Model
     use HasFactory;
     public static array $experience = ["entry", "intermediate", "senior"];
     public static array $category = ["IT", "Sales", "Finances", "Marketing"];
+    protected $fillable = ["title","location","description","salary","experience","category"];
 
     public function employer()
     {
@@ -27,6 +28,9 @@ class Job extends Model
     {
        
         return $this->jobApplications()->where("user_id", $user->id ?? $user)->exists();
+    }
+    public function isPosted(Authenticatable|User|int $user){
+        return $this->employer()->where("user_id",$user->id ?? $user)->exists();
     }
     public function scopeFilter(Builder | EloquentBuilder $query, array $filters)
     {

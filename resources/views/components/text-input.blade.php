@@ -4,9 +4,9 @@
     'type' => 'text',
     'name',
     'placeholder' => '',
-    'value' => '',
     'icon' => null,
-    'id' => null
+    'id' => null,
+    "value"=> ""
 ])
 
 @php
@@ -25,7 +25,7 @@
         @endif
 
         <input type="{{ $type }}" x-ref="input-{{ $name }}" name="{{ $name }}"
-            id="{{ $id}}" value="{{ old($name, $value) }}" placeholder="{{ $placeholder }}"
+            id="{{ $id }}" value="{{ old($name,$value) }}" placeholder="{{ $placeholder }}" 
             {{ $attributes->class([
                 'peer w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm',
                 'text-slate-900 placeholder:text-slate-400',
@@ -60,14 +60,19 @@
         @enderror
     </div>
 @else
-    <textarea name="{{ $name }}" id="{{ $name }}" cols="10" rows="10" class="w-full ring-1"
+    <textarea name="{{ $name }}" id="{{ $name }}" cols="5" rows="5" 
         @class([
+            'w-full rounded-lg border p-3',
             'border-red-300 focus:border-red-400 focus:ring-red-100' => $errors->has(
                 $name),
             'border-slate-300 focus:border-slate-400 focus:ring-slate-200' => !$errors->has(
                 $name),
-        ])>
-    {{ old($name, $value) }}
-</textarea>
+        ])>{{ old($name,$value) }}</textarea>
+
+    @error($name)
+        <div class="mt-1 text-sm text-rose-600">
+            {{ $message }}
+        </div>
+    @enderror
 
 @endif

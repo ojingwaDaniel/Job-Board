@@ -15,6 +15,10 @@ class JobPolicy
     {
         return true;
     }
+    public function viewMyJob(User $user): bool
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can view the model.
@@ -27,17 +31,24 @@ class JobPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function createAJob(User $user): bool
     {
-        return false;
+        
+        return $user->employer !== null;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Job $job): bool
+    public function update(User $user, Job $job)
     {
-        return false;
+        if ($job->employer->user_id !== $user->id) {
+            return  Response::deny("You cant edit a job you did'nt post");
+        }
+        if ($job->jobApplications()->exists() > 0) {
+            return  Response::deny("You can't edit a job that has applications");
+        }
+        return Response::allow();
     }
 
     /**
@@ -45,7 +56,7 @@ class JobPolicy
      */
     public function delete(User $user, Job $job): bool
     {
-        return false;
+        return $job->employer->user_id === $user->id;
     }
 
     /**
@@ -53,7 +64,7 @@ class JobPolicy
      */
     public function restore(User $user, Job $job): bool
     {
-        return false;
+        return $job->employer->user_id === $user->id;
     }
 
     /**
@@ -61,10 +72,16 @@ class JobPolicy
      */
     public function forceDelete(User $user, Job $job): bool
     {
-        return false;
+        return $job->employer->user_id === $user->id;
     }
-    public function apply(User $user, Job $job):bool{
-        return !$job->userHasApply($user);
-        // return false;
+
+    public function apply(User $user, Job $job): bool
+    {
+        return  !$job->userHasApply($user);
+    }
+
+    public function posted(User $user, Job $job): bool
+    {
+        return $job->isPosted($user);
     }
 }
