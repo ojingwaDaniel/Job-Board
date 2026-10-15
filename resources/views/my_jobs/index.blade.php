@@ -38,20 +38,37 @@
                 @forelse ($myJobs as $myJob)
                     <x-job-card :job="$myJob"
                         class="block border border-gray-200 rounded-xl bg-white overflow-hidden hover:border-blue-300 hover:shadow-md transition">
-                        @can('update', $myJob)
-                            <div class="flex justify-end px-5 pt-4">
-                                <x-link-button :href="route('my-jobs.edit', $myJob)"
-                                    class="inline-flex items-center text-sm font-medium text-gray-700 bg-black border border-gray-200 hover:bg-gray-50 hover:border-gray-300 px-3.5 py-1.5 rounded-lg transition shadow-sm">
+
+
+                        <div class="flex justify-end items-center gap-2 px-5 pt-4">
+                            @if (!$myJob->deleted_at)
+                              <form action="{{ route('my-jobs.destroy', $myJob) }}" method="post"
+                                onsubmit="return confirm('Are you sure you want to delete this job? It can\'t be undone.')">
+                                @csrf
+                                @method('DELETE')
+                                <x-button class="hover:bg-red-300 text-red-600">Delete this Job</x-button>
+                            </form>
+                            @else
+                            <form action="{{ route('my-jobs.restore', $myJob) }}" method="post"
+                                onsubmit="return confirm('Are you sure you want to restore this job? It can\'t') ">
+                                @csrf
+                                @method('PATCH')
+                                <x-button class="bg-green-300 text-green-600">Restore this Job</x-button>
+                            </form>
+                                
+                            @endif
+
+                            @can('update', $myJob)
+                                <x-link-button :href="route('my-jobs.edit', $myJob)" class="...">
                                     Edit job
                                 </x-link-button>
-                            </div>
-                        @else
-                            <div class="flex justify-end px-5 pt-4">
-                                <span class="inline-flex items-center text-xs font-medium text-gray-400 bg-gray-50 border border-gray-200 px-3 py-1 rounded-full">
+                            @else
+                                <span
+                                    class="inline-flex items-center text-xs font-medium text-gray-400 bg-gray-50 border border-gray-200 px-3 py-1 rounded-full">
                                     Can't edit this Job
                                 </span>
-                            </div>
-                        @endcan
+                            @endcan
+                        </div>
 
                         <div class="p-5 divide-y divide-gray-100">
                             @forelse ($myJob->jobApplications as $jobApplication)

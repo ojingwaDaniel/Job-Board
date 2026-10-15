@@ -6,12 +6,13 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 
 class Job extends Model
 {
     /** @use HasFactory<\Database\Factories\JobFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     public static array $experience = ["entry", "intermediate", "senior"];
     public static array $category = ["IT", "Sales", "Finances", "Marketing"];
     protected $fillable = ["title","location","description","salary","experience","category"];

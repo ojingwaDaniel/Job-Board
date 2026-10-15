@@ -25,7 +25,7 @@
 
                     <span class="h-3.5 w-px bg-slate-200" aria-hidden="true"></span>
 
-                    <span class="inline-flex items-center gap-1.5">
+                    <span class="inline-flex items-center gap-3">
                         <svg class="h-3.5 w-3.5 text-slate-400"
                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -33,6 +33,10 @@
                             <circle cx="12" cy="10" r="3"/>
                         </svg>
                         <span class="truncate">{{ $job->location }}</span>
+                        @if ($job->deleted_at)
+                               <span class="text-sm text-red-500">Deleted</span>
+                        @endif
+                     
                     </span>
                 </div>
             </div>

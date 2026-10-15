@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Employer;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -31,11 +32,21 @@ class JobPolicy
     /**
      * Determine whether the user can create models.
      */
+
     public function createAJob(User $user): bool
     {
-        
+
         return $user->employer !== null;
     }
+    public function createAJobApplication(User $user, Job $job)
+    {
+
+        if ($job->employer->user_id === $user->id) {
+            return Response::deny("You cant create Application for the job you posted");
+        }
+        return Response::allow();
+    }
+
 
     /**
      * Determine whether the user can update the model.

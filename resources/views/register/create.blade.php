@@ -110,40 +110,11 @@
                 </x-button>
             </form>
 
-            {{-- Divider + Signup prompt --}}
-            @if (Route::has('register'))
-                <div class="my-6 flex items-center gap-4">
-                    <span class="h-px flex-1 bg-slate-200 dark:bg-white/10" aria-hidden="true"></span>
-                    <span class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
-                        New here?
-                    </span>
-                    <span class="h-px flex-1 bg-slate-200 dark:bg-white/10" aria-hidden="true"></span>
-                </div>
-
-                <a href="{{ route('register') }}"
-                    class="group inline-flex w-full items-center justify-center gap-2 rounded-xl
-                          border border-slate-200 bg-white px-5 py-2.5
-                          text-sm font-medium text-slate-700 shadow-sm
-                          transition-all duration-200
-                          hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 hover:shadow
-                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/40
-                          focus-visible:ring-offset-2
-                          dark:border-white/10 dark:bg-white/5 dark:text-slate-200
-                          dark:hover:border-white/20 dark:hover:bg-white/10 dark:hover:text-white">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                        <circle cx="8.5" cy="7" r="4" />
-                        <path d="M20 8v6M23 11h-6" />
-                    </svg>
-                    Create an account
-                </a>
-            @endif
         </x-card>
 
         {{-- Footer note --}}
         <p class="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">
-            By signing in, you agree to our
+            By signing up, you agree to our
             <a href="#"
                 class="underline decoration-slate-300 underline-offset-2 hover:text-slate-600
                                dark:hover:text-slate-300">Terms</a>

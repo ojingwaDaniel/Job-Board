@@ -21,5 +21,6 @@ Route::middleware("auth")->group(function(){
     Route::delete("logout",[AuthController::class,"destroy"])->name("logout");
     Route::resource('employer',EmployerController::class)->only("create","store");
     Route::middleware('employer')->resource('my-jobs',MyJobController::class);
+    Route::patch('my-jobs/{my_job}',[MyJobController::class,"restore"])->withTrashed()->name("my-jobs.restore");
 
 });

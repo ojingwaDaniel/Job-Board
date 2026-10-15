@@ -15,7 +15,7 @@ class MyJobController extends Controller
     public function index()
     {
         $this->authorize("viewMyJob", Job::class);
-        $myJobs = auth()->user()->employer->jobs()->with("employer", "jobApplications.user",)->get();
+        $myJobs = auth()->user()->employer->jobs()->with("employer", "jobApplications.user",)->withTrashed()->get();
         return view("my_jobs.index", compact("myJobs"));
     }
 
@@ -60,8 +60,14 @@ class MyJobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Job $myJob)
     {
-        //
+        $myJob->delete();
+        return redirect()->route("my-jobs.index")->with("success","Job deleted successfully");
+    }
+    public function restore(Job $myJob){
+        $myJob->restore();
+        return redirect()->route("my-jobs.index")->with("success","Job restored successfully");
+        
     }
 }

@@ -29,6 +29,8 @@ class JobController extends Controller
     public function show(Job $job)
     {
         $this->authorize("view",$job);
+    
+
         $job = $job->load("employer.jobs");
         return view("jobs.show",compact("job"));
     }

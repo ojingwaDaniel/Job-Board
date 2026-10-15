@@ -11,8 +11,9 @@ class JobApplicationController extends Controller
 
     public function create(Job $job)
     {
-        // $this->authorize('apply',$job);
+        $this->authorize('createAJobApplication',$job);
         Gate::authorize('apply', $job);
+
         return view("jobApplications.create", compact("job"));
     }
 
