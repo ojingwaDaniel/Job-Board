@@ -66,6 +66,7 @@ class MyJobController extends Controller
         return redirect()->route("my-jobs.index")->with("success","Job deleted successfully");
     }
     public function restore(Job $myJob){
+        $this->authorize("restore",$myJob);
         $myJob->restore();
         return redirect()->route("my-jobs.index")->with("success","Job restored successfully");
         

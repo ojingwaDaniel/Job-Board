@@ -95,4 +95,8 @@ class JobPolicy
     {
         return $job->isPosted($user);
     }
+    public function viewCv(User $user ,Job $job ){
+       return $job->employer->user_id === $user->id;
+    }
+      
 }
